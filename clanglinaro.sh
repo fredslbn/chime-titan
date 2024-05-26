@@ -22,7 +22,7 @@ DEVICE=chime
 DEFCONFIG=vendor/bengal-perf_defconfig
 
 # Files
-IMAGE=$(pwd)/out/arch/arm64/boot/Image
+IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz
 #DTBO=$(pwd)/out/arch/arm64/boot/dtbo.img
 #DTB=$(pwd)/out/arch/arm64/boot/dts/mediatek
 
