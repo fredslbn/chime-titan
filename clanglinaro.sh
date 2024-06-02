@@ -8,7 +8,9 @@
 # Specify Kernel Directory
 KERNEL_DIR="$(pwd)"
 
-git submodule update --remote
+cd KernelSU
+git checkout v0.9.5
+# git submodule update --remote
 
 ##----------------------------------------------------------##
 # Device Name and Model
