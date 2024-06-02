@@ -10,6 +10,7 @@ KERNEL_DIR="$(pwd)"
 
 cd KernelSU
 git checkout v0.9.5
+cd ..
 # git submodule update --remote
 
 ##----------------------------------------------------------##
