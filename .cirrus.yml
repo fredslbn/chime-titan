@@ -9,5 +9,4 @@ task:
       
   setup_script:
     - ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && date
-    - apt update && apt upgrade -y
       
