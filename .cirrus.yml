@@ -11,6 +11,5 @@ task:
     - ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && date
     - apt update && apt upgrade -y
     - cd KernelSU
-    - git submodule update --init --recursive --remote
     - git rev-list --count HEAD
     - cd ..
