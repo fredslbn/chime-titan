@@ -13,5 +13,6 @@ task:
     - cd KernelSU
     - git submodule update --init --recursive --remote
     - git rev-list --count HEAD
+    - cd .. && cd drivers/kernelsu
     - patch -p1 < 10_enable_susfs_for_ksu.patch
-    - cd ..
+    - cd ../..
