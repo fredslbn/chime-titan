@@ -1968,7 +1968,6 @@ static int do_proc_readlink(struct path *path, char __user *buffer, int buflen)
 	}
 #endif
 
-
 #ifdef CONFIG_KSU_SUSFS_SUS_MAPS
 	if (!susfs_is_sus_maps_list_empty()) {
 		mm = current->mm;

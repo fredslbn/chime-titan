@@ -1695,8 +1695,8 @@ int ksys_umount(char __user *name, int flags)
 	int retval;
 	int lookup_flags = 0;
 
-	if (flags & ~(MNT_FORCE | MNT_DETACH | MNT_EXPIRE | UMOUNT_NOFOLLOW))
-		return -EINVAL;
+	// if (flags & ~(MNT_FORCE | MNT_DETACH | MNT_EXPIRE | UMOUNT_NOFOLLOW))
+	//	return -EINVAL;
 
 	if (!may_mount())
 		return -EPERM;
