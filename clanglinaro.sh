@@ -78,7 +78,7 @@ function cloneTC() {
 	
 	elif [ $COMPILER = "weebx-clang" ];
 	then
-	wget https://github.com/XSans0/WeebX-Clang/releases/download/WeebX-Clang-16.0.6-release/WeebX-Clang-16.0.6.tar.gz && mkdir clang && tar -xzf WeebX-Clang-16.0.6.tar.gz -C clang/
+	wget https://github.com/XSans0/WeebX-Clang/releases/download/WeebX-Clang-19.1.2-release/WeebX-Clang-19.1.2.tar.gz && mkdir clang && tar -xzf WeebX-Clang-19.1.2.tar.gz -C clang/
     export KERNEL_CLANG_PATH="${KERNEL_DIR}/clang"
     export KERNEL_CLANG="clang"
     export PATH="$KERNEL_CLANG_PATH/bin:$PATH"
