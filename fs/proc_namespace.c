@@ -18,11 +18,6 @@
 #include "pnode.h"
 #include "internal.h"
 
-#ifdef CONFIG_KSU_SUSFS
-#include <linux/susfs.h>
-#endif
-
-
 static __poll_t mounts_poll(struct file *file, poll_table *wait)
 {
 	struct seq_file *m = file->private_data;
@@ -240,11 +235,6 @@ static int show_vfsstat(struct seq_file *m, struct vfsmount *mnt)
 	int err;
 
 #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
-	if (susfs_sus_mount(mnt, &p->root))
-		return 0;
-#endif
-
-#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
 	if (unlikely(r->mnt.mnt_root->d_inode->i_state & 33554432))
 		return 0;
 #endif
@@ -332,12 +322,6 @@ static int mounts_open_common(struct inode *inode, struct file *file,
 	p->show = show;
 	p->cached_event = ~0ULL;
 
-#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT_MNT_ID_REORDER
-	if (uid_matches_proc_need_to_reorder_mnt_id()) {
-		susfs_add_mnt_id_recorder(p->ns);
-	}
-#endif
-
 	return 0;
 
  err_put_path:
@@ -352,12 +336,6 @@ static int mounts_release(struct inode *inode, struct file *file)
 {
 	struct seq_file *m = file->private_data;
 	struct proc_mounts *p = m->private;
-
-#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT_MNT_ID_REORDER
-	if (uid_matches_proc_need_to_reorder_mnt_id()) {
-		susfs_remove_mnt_id_recorder();
-	}
-#endif
 
 	path_put(&p->root);
 	put_mnt_ns(p->ns);
