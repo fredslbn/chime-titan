@@ -2168,35 +2168,6 @@ retry:
 		return mp;
 	}
 
-#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
-	// current->android_kabi_reserved3 -> check if current process is zygote 
-	// current->android_kabi_reserved4 -> to record last valid fake mnt id to zygote pid
-	// q->mnt.android_kabi_reserved1 -> fake mnt id
-	// q->mnt.android_kabi_reserved2 -> fake mnt group id (peer id)
-
-	// Here We are only interested in processes of which original mnt namespace belongs to zygote 
-	// Also we just make use of existing 'p' and 'q' mount pointer, no need to delcare extra mount pointer
-	if (likely(current->android_kabi_reserved3 & 1)) {
-		first_entry_mnt_id = list_first_entry(&new_ns->list, struct mount, mnt_list)->mnt_id;
-		list_for_each_entry(q, &new_ns->list, mnt_list) {
-			if (unlikely(q->mnt.mnt_root->d_inode->i_state & 33554432))
-				continue;
-			q->mnt.android_kabi_reserved1 = first_entry_mnt_id++;
-			if (q->mnt_master) {
-				if (likely(last_mnt_master_group_id != q->mnt_master->mnt_group_id)) {
-					q->mnt.android_kabi_reserved2 = first_entry_mnt_master_group_id++;
-				} else {
-					q->mnt.android_kabi_reserved2 = first_entry_mnt_master_group_id;
-				}
-				last_mnt_master_group_id = q->mnt.android_kabi_reserved2;
-			}
-		}
-	}
-	// Assign the last fake mnt_id to current->android_kabi_reserved4 for later use.
-	// should be fine here assuming zygote is forking/unsharing app in one single thread.
-	// Or should we put a lock here?
-	current->android_kabi_reserved4 = first_entry_mnt_id;
-#endif
 	namespace_unlock();
 	inode_unlock(path->dentry->d_inode);
 	path_put(path);
@@ -2622,13 +2593,6 @@ static int do_new_mount(struct path *path, const char *fstype, int sb_flags,
 	}
 
 	err = do_add_mount(real_mount(mnt), path, mnt_flags);
-#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
-	if (!err) {
-		if (path->dentry && path->dentry->d_inode && unlikely(path->dentry->d_inode->i_state & 33554432)) {
-			real_mount(mnt)->mnt.mnt_root->d_inode->i_state |= 33554432;
-		}
-	}
-#endif
 
 	if (err)
 		mntput(mnt);

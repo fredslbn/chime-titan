@@ -23,10 +23,6 @@
 
 #include <linux/uaccess.h>
 
-#ifdef CONFIG_KSU_SUSFS
-#include <linux/susfs.h>
-#endif
-
 #ifdef CONFIG_KSU_SUSFS_SUS_PATH
 #include <linux/susfs.h>
 #endif

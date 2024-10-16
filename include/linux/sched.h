@@ -1490,6 +1490,12 @@ struct task_struct {
 	/* Used by LSM modules for access restriction: */
 	void				*security;
 #endif
+
+#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
+	u64 android_kabi_reserved1;
+	u64 android_kabi_reserved2;
+#endif
+
 	/* task is frozen/stopped (used by the cgroup freezer) */
 	ANDROID_KABI_USE(1, unsigned frozen:1);
 
@@ -1508,10 +1514,6 @@ struct task_struct {
 	ANDROID_KABI_RESERVE(5);
 	ANDROID_KABI_RESERVE(6);
 #else
-#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
-	u64 android_kabi_reserved3;
-	u64 android_kabi_reserved4;
-#endif // #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
 	struct mutex			futex_exit_mutex;
 #endif
 
