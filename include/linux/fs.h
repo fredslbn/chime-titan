@@ -726,8 +726,6 @@ struct inode {
 #ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
 	u64 android_kabi_reserved1;
 	u64 android_kabi_reserved2;
-	u64 android_kabi_reserved3;
-	u64 android_kabi_reserved4;
 #endif
 
 } __randomize_layout;
@@ -1546,7 +1544,6 @@ struct super_block {
 	u64 android_kabi_reserved1;
 	u64 android_kabi_reserved2;
 	u64 android_kabi_reserved3;
-	u64 android_kabi_reserved4;
 #endif
 
 } __randomize_layout;
