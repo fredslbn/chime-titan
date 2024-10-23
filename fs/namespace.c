@@ -983,8 +983,8 @@ vfs_kern_mount(struct file_system_type *type, int flags, const char *name, void 
 #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
 	// here we reorder the mounts that are added after copy_mnt_ns();
 	// make sure it is zygote process
-	if (likely(current->android_kabi_reserved3 & 1)) {
-		mnt->mnt.android_kabi_reserved1 = current->android_kabi_reserved4++;
+	if (likely(current->android_kabi_reserved1 & 1)) {
+		mnt->mnt.android_kabi_reserved1 = current->android_kabi_reserved2++;
 	}
 	// Seems no need to reorder the mnt group id for mounts after copy_mnt_ns();
 #endif
@@ -1074,8 +1074,8 @@ static struct mount *clone_mnt(struct mount *old, struct dentry *root,
 #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
 	// here we reorder the mounts that are added after copy_mnt_ns();
 	// make sure it is zygote process
-	if (likely(current->android_kabi_reserved3 & 1)) {
-		mnt->mnt.android_kabi_reserved1 = current->android_kabi_reserved4++;
+	if (likely(current->android_kabi_reserved1 & 1)) {
+		mnt->mnt.android_kabi_reserved1 = current->android_kabi_reserved2++;
 	}
 	// Seems no need to reorder the mnt group id for mounts after copy_mnt_ns();
 
@@ -3056,7 +3056,7 @@ struct mnt_namespace *copy_mnt_ns(unsigned long flags, struct mnt_namespace *ns,
 
 	// Here We are only interested in processes of which original mnt namespace belongs to zygote 
 	// Also we just make use of existing 'p' and 'q' mount pointer, no need to delcare extra mount pointer
-	if (likely(current->android_kabi_reserved3 & 1)) {
+	if (likely(current->android_kabi_reserved1 & 1)) {
 		first_entry_mnt_id = list_first_entry(&new_ns->list, struct mount, mnt_list)->mnt_id;
 		list_for_each_entry(q, &new_ns->list, mnt_list) {
 			if (unlikely(q->mnt.mnt_root->d_inode->i_state & 33554432))
@@ -3075,7 +3075,7 @@ struct mnt_namespace *copy_mnt_ns(unsigned long flags, struct mnt_namespace *ns,
 	// Assign the last fake mnt_id to current->android_kabi_reserved4 for later use.
 	// should be fine here assuming zygote is forking/unsharing app in one single thread.
 	// Or should we put a lock here?
-	current->android_kabi_reserved4 = first_entry_mnt_id;
+	current->android_kabi_reserved2 = first_entry_mnt_id;
 #endif
 
 	namespace_unlock();

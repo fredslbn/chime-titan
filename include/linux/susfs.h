@@ -41,7 +41,7 @@
 #define INODE_STATE_SUS_MOUNT 33554432 // 1 << 25
 #define INODE_STATE_SUS_KSTAT 67108864 // 1 << 26
 
-#define TASK_STRUCT_KABI3_IS_ZYGOTE 1 // 1 << 0
+#define TASK_STRUCT_KABI1_IS_ZYGOTE 1 // 1 << 0
 
 #define USER_STRUCT_KABI1_NON_ROOT_USER_APP_PROFILE 16777216 // 1 << 24, for distinguishing root/no-root granted user app process
 
