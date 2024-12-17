@@ -2903,7 +2903,11 @@ long do_mount(const char *dev_name, const char __user *dir_name,
 	struct path path;
 	unsigned int mnt_flags = 0, sb_flags;
 	int retval = 0;
-
+	
+#ifdef CONFIG_KSU_SUSFS_AUTO_ADD_SUS_KSU_DEFAULT_MOUNT
+	char *tmp_dir_name;
+#endif
+	
 	/* Discard magic */
 	if ((flags & MS_MGC_MSK) == MS_MGC_VAL)
 		flags &= ~MS_MGC_MSK;

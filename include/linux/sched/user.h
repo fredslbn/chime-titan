@@ -44,13 +44,19 @@ struct user_struct {
 	atomic_long_t locked_vm;
 #endif
 
-#if defined(CONFIG_KSU_SUSFS_SUS_MOUNT) || defined(CONFIG_KSU_SUSFS_SUS_PATH)
-	u64 android_kabi_reserved2;
-#endif
+//#if defined(CONFIG_KSU_SUSFS_SUS_MOUNT) || defined(CONFIG_KSU_SUSFS_SUS_PATH)
+//	u64 android_kabi_reserved2;
+//#endif
 
 
 	/* Miscellaneous per-user rate limit */
 	struct ratelimit_state ratelimit;
+
+#if defined(CONFIG_KSU_SUSFS) && !defined(ANDROID_KABI_RESERVE)
+	u64 android_kabi_reserved2;
+#endif
+	
+	
 };
 
 extern int uids_sysfs_init(void);

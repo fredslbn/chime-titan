@@ -1491,11 +1491,9 @@ struct task_struct {
 	void				*security;
 #endif
 
-#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
-	u64 android_kabi_reserved2;
-	u64 android_kabi_reserved4;
-	u64 android_kabi_reserved8;
-#endif
+//#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
+//	u64 android_kabi_reserved8;
+//#endif
 
 	/* task is frozen/stopped (used by the cgroup freezer) */
 	ANDROID_KABI_USE(1, unsigned frozen:1);
@@ -1525,6 +1523,11 @@ struct task_struct {
 	ANDROID_KABI_RESERVE(7);
 #endif
 	ANDROID_KABI_RESERVE(8);
+
+#if defined(CONFIG_KSU_SUSFS) && !defined(ANDROID_KABI_RESERVE)
+	u64 android_kabi_reserved8;
+#endif
+
 
 	/*
 	 * New fields for task_struct should be added above here, so that
