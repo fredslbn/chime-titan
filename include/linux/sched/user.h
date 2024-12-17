@@ -45,7 +45,7 @@ struct user_struct {
 #endif
 
 #if defined(CONFIG_KSU_SUSFS_SUS_MOUNT) || defined(CONFIG_KSU_SUSFS_SUS_PATH)
-	u64 android_kabi_reserved1;
+	u64 android_kabi_reserved2;
 #endif
 
 

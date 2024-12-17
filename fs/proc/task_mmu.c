@@ -491,6 +491,10 @@ static int show_vma_header_prefix(struct seq_file *m, unsigned long start,
 	return 0;
 }
 
+#ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
+extern void susfs_sus_ino_for_show_map_vma(unsigned long ino, dev_t *out_dev, unsigned long *out_ino);
+#endif
+
 static void
 show_map_vma(struct seq_file *m, struct vm_area_struct *vma)
 {
@@ -508,8 +512,7 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma)
 
 #ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
 		if (unlikely(inode->i_state & 67108864)) {
-			dev = inode->android_kabi_reserved2;
-			ino = inode->android_kabi_reserved1;
+			susfs_sus_ino_for_show_map_vma(inode->i_ino, &dev, &ino);
 			goto bypass_orig_flow;
 		}
 #endif
@@ -519,7 +522,7 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma)
 		
 #ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
 bypass_orig_flow:
-#endif		
+#endif
 	
 		pgoff = ((loff_t)vma->vm_pgoff) << PAGE_SHIFT;
 	}
