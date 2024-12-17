@@ -1491,9 +1491,9 @@ struct task_struct {
 	void				*security;
 #endif
 
-//#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
-//	u64 android_kabi_reserved8;
-//#endif
+#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
+	u64 android_kabi_reserved8;
+#endif
 
 	/* task is frozen/stopped (used by the cgroup freezer) */
 	ANDROID_KABI_USE(1, unsigned frozen:1);
@@ -1524,9 +1524,9 @@ struct task_struct {
 #endif
 	ANDROID_KABI_RESERVE(8);
 
-#if defined(CONFIG_KSU_SUSFS) && !defined(ANDROID_KABI_RESERVE)
-	u64 android_kabi_reserved8;
-#endif
+//#if defined(CONFIG_KSU_SUSFS) && !defined(ANDROID_KABI_RESERVE)
+//	u64 android_kabi_reserved8;
+//#endif
 
 
 	/*
