@@ -724,10 +724,9 @@ struct inode {
 	void			*i_private; /* fs or device private pointer */
 
 #ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
-	u64 android_kabi_reserved1;
 	u64 android_kabi_reserved2;
-	u64 android_kabi_reserved3;
 	u64 android_kabi_reserved4;
+	u64 android_kabi_reserved8;
 #endif
 
 } __randomize_layout;
@@ -1543,10 +1542,9 @@ struct super_block {
 	struct list_head	s_inodes_wb;	/* writeback inodes */
 
 #ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
-	u64 android_kabi_reserved1;
 	u64 android_kabi_reserved2;
-	u64 android_kabi_reserved3;
 	u64 android_kabi_reserved4;
+	u64 android_kabi_reserved8;
 #endif
 
 } __randomize_layout;

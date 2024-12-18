@@ -78,8 +78,7 @@ struct user_namespace {
 	struct ucounts		*ucounts;
 	int ucount_max[UCOUNT_COUNTS];
 
-#ifdef CONFIG_KSU_SUSFS
-	u64 android_kabi_reserved1;
+#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
 	u64 android_kabi_reserved2;
 #endif
 
